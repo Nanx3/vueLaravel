@@ -9,11 +9,17 @@ class ProductController extends Controller
 {
     public function index() {
         $products = Product::all();
-        return view('home', compact('products'));
+        return response()->json(compact('products'));
+    }
+
+    public function store(Request $request) {
+        $product = Product::create($request->all());
+        return response()->json(compact('product'));
     }
 
     public function delete(Product $product) {
         $product->delete();
-        return redirect()->route('product.index');
+        return response()->json(compact('product'));
     }
+
 }
